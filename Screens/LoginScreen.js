@@ -9,6 +9,7 @@ import {
   TouchableOpacity,
   TouchableWithoutFeedback,
   Keyboard,
+  ImageBackground,
 } from 'react-native';
 
 const LoginScreen = () => {
@@ -32,46 +33,64 @@ const LoginScreen = () => {
   };
 
   return (
-    <TouchableWithoutFeedback onPress={keyboardHide}>
-      <KeyboardAvoidingView behavior={Platform.OS == 'ios' ? 'padding' : 'height'}>
-        <View style={{ ...styles.container, marginBottom: isShowKeyboard && -250 }}>
-          <Text style={styles.title}>Увійти</Text>
-          <TextInput
-            value={email}
-            onChangeText={emailHandler}
-            placeholder="Адрес електронної почти"
-            style={styles.input}
-            onFocus={() => setIsShowKeyboard(true)}
-          />
-          <View>
-            <TextInput
-              value={password}
-              onChangeText={passwordHandler}
-              placeholder="Пароль"
-              secureTextEntry={false}
-              style={styles.input}
-              onFocus={() => setIsShowKeyboard(true)}></TextInput>
-            <TouchableOpacity style={styles.showPassword}>
-              <Text>Показати</Text>
-            </TouchableOpacity>
-          </View>
-          <TouchableOpacity
-            style={styles.button}
-            onPress={() => {
-              keyboardHide(), onLogin();
-            }}>
-            <Text style={styles.buttonText}>Увійти</Text>
-          </TouchableOpacity>
-          <TouchableOpacity>
-            <Text style={styles.link}>Немає акаунту? Зареєструватися</Text>
-          </TouchableOpacity>
-        </View>
-      </KeyboardAvoidingView>
-    </TouchableWithoutFeedback>
+    <ImageBackground
+      source={require('../img/backgroundPNG.png')}
+      style={styles.conatinerBackground}>
+      <View>
+        <TouchableWithoutFeedback onPress={keyboardHide}>
+          <KeyboardAvoidingView behavior={Platform.OS == 'ios' ? 'padding' : 'height'}>
+            <View style={{ ...styles.container, marginBottom: isShowKeyboard && 120 }}>
+              <Text style={styles.title}>Увійти</Text>
+              <TextInput
+                value={email}
+                onChangeText={emailHandler}
+                placeholder="Адрес електронної почти"
+                style={styles.input}
+                onFocus={() => setIsShowKeyboard(true)}
+              />
+              <View>
+                <TextInput
+                  value={password}
+                  onChangeText={passwordHandler}
+                  placeholder="Пароль"
+                  secureTextEntry={false}
+                  style={styles.input}
+                  onFocus={() => setIsShowKeyboard(true)}></TextInput>
+                <TouchableOpacity style={styles.showPassword}>
+                  <Text>Показати</Text>
+                </TouchableOpacity>
+              </View>
+              <TouchableOpacity
+                style={styles.button}
+                onPress={() => {
+                  keyboardHide(), onLogin();
+                }}>
+                <Text style={styles.buttonText}>Увійти</Text>
+              </TouchableOpacity>
+              <TouchableOpacity>
+                <Text style={styles.link}>Немає акаунту? Зареєструватися</Text>
+              </TouchableOpacity>
+            </View>
+          </KeyboardAvoidingView>
+        </TouchableWithoutFeedback>
+      </View>
+    </ImageBackground>
   );
 };
 
 const styles = StyleSheet.create({
+  conatinerBackground: {
+    display: 'flex',
+    justifyContent: 'flex-end',
+    fontStyle: 'normal',
+    fontWeight: 400,
+    fontSize: 16,
+    lineHeight: 19,
+    textAlign: 'center',
+    letterSpacing: 0.01,
+    flex: 1,
+    resizeMode: 'cover',
+  },
   container: {
     minWidth: 100,
     border: '1px solid #000000',

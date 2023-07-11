@@ -10,6 +10,7 @@ import {
   TouchableOpacity,
   TouchableWithoutFeedback,
   Keyboard,
+  ImageBackground,
 } from 'react-native';
 import SvgComponent from '../img/plusSvg';
 
@@ -37,58 +38,76 @@ const RegistrationScreen = () => {
   };
 
   return (
-    <TouchableWithoutFeedback onPress={keyboardHide}>
-      <KeyboardAvoidingView behavior={Platform.OS == 'ios' ? 'padding' : 'height'}>
-        <View style={{ ...styles.container, marginBottom: isShowKeyboard ? -200 : 0 }}>
-          <View style={styles.imgContainer}>
-            <Image source={require('../img/defaultImg.png')} />
-            <SvgComponent style={styles.imgSvg} />
-          </View>
-          <Text style={styles.title}>Реєстрація</Text>
-          <TextInput
-            value={login}
-            onChangeText={loginHandler}
-            placeholder="Логін"
-            style={styles.input}
-            onFocus={() => setIsShowKeyboard(true)}
-          />
-          <TextInput
-            value={email}
-            onChangeText={emailHandler}
-            placeholder="Адрес електроної почти"
-            style={styles.input}
-            onFocus={() => setIsShowKeyboard(true)}
-          />
-          <View>
-            <TextInput
-              value={password}
-              onChangeText={passwordHandler}
-              placeholder="Пароль"
-              secureTextEntry={true}
-              style={styles.input}
-              onFocus={() => setIsShowKeyboard(true)}
-            />
-            <TouchableOpacity style={styles.showPassword}>
-              <Text>Показати</Text>
-            </TouchableOpacity>
-          </View>
-          <TouchableOpacity
-            style={styles.button}
-            onPress={() => {
-              keyboardHide(), logIn();
-            }}>
-            <Text style={styles.buttonText}>Зареєструватися</Text>
-          </TouchableOpacity>
-          <TouchableOpacity>
-            <Text style={styles.link}>Вже є акаунт? Увійти</Text>
-          </TouchableOpacity>
-        </View>
-      </KeyboardAvoidingView>
-    </TouchableWithoutFeedback>
+    <ImageBackground
+      source={require('../img/backgroundPNG.png')}
+      style={styles.conatinerBackground}>
+      <View>
+        <TouchableWithoutFeedback onPress={keyboardHide}>
+          <KeyboardAvoidingView behavior={Platform.OS == 'ios' ? 'padding' : 'height'}>
+            <View style={{ ...styles.container, marginBottom: isShowKeyboard ? 0 : 50 }}>
+              <View style={styles.imgContainer}>
+                <Image source={require('../img/defaultImg.png')} />
+                <SvgComponent style={styles.imgSvg} />
+              </View>
+              <Text style={styles.title}>Реєстрація</Text>
+              <TextInput
+                value={login}
+                onChangeText={loginHandler}
+                placeholder="Логін"
+                style={styles.input}
+                onFocus={() => setIsShowKeyboard(true)}
+              />
+              <TextInput
+                value={email}
+                onChangeText={emailHandler}
+                placeholder="Адрес електроної почти"
+                style={styles.input}
+                onFocus={() => setIsShowKeyboard(true)}
+              />
+              <View>
+                <TextInput
+                  value={password}
+                  onChangeText={passwordHandler}
+                  placeholder="Пароль"
+                  secureTextEntry={true}
+                  style={styles.input}
+                  onFocus={() => setIsShowKeyboard(true)}
+                />
+                <TouchableOpacity style={styles.showPassword}>
+                  <Text>Показати</Text>
+                </TouchableOpacity>
+              </View>
+              <TouchableOpacity
+                style={styles.button}
+                onPress={() => {
+                  keyboardHide(), logIn();
+                }}>
+                <Text style={styles.buttonText}>Зареєструватися</Text>
+              </TouchableOpacity>
+              <TouchableOpacity>
+                <Text style={styles.link}>Вже є акаунт? Увійти</Text>
+              </TouchableOpacity>
+            </View>
+          </KeyboardAvoidingView>
+        </TouchableWithoutFeedback>
+      </View>
+    </ImageBackground>
   );
 };
 
 const styles = StyleSheet.create({
+  conatinerBackground: {
+    display: 'flex',
+    justifyContent: 'flex-end',
+    fontStyle: 'normal',
+    fontWeight: 400,
+    fontSize: 16,
+    lineHeight: 19,
+    textAlign: 'center',
+    letterSpacing: 0.01,
+    flex: 1,
+    resizeMode: 'cover',
+  },
   container: {
     minWidth: 100,
     border: '1px solid #000000',
