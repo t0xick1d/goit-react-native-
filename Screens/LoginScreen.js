@@ -11,11 +11,13 @@ import {
   Keyboard,
   ImageBackground,
 } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 
 const LoginScreen = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isShowKeyboard, setIsShowKeyboard] = useState(false);
+  const navigation = useNavigation();
 
   const emailHandler = (text) => setEmail(text);
   const passwordHandler = (text) => setPassword(text);
@@ -64,10 +66,16 @@ const LoginScreen = () => {
                 style={styles.button}
                 onPress={() => {
                   keyboardHide(), onLogin();
+                  navigation.navigate('Home');
                 }}>
                 <Text style={styles.buttonText}>Увійти</Text>
               </TouchableOpacity>
-              <TouchableOpacity>
+              <TouchableOpacity
+                onPress={() =>
+                  navigation.navigate('Registration', {
+                    screen: 'PostsScreen',
+                  })
+                }>
                 <Text style={styles.link}>Немає акаунту? Зареєструватися</Text>
               </TouchableOpacity>
             </View>

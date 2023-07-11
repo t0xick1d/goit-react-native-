@@ -13,12 +13,14 @@ import {
   ImageBackground,
 } from 'react-native';
 import SvgComponent from '../img/plusSvg';
+import { useNavigation } from '@react-navigation/native';
 
 const RegistrationScreen = () => {
   const [isShowKeyboard, setIsShowKeyboard] = useState(false);
   const [login, setLogin] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const navigation = useNavigation();
 
   const loginHandler = (text) => setLogin(text);
   const emailHandler = (text) => setEmail(text);
@@ -44,7 +46,7 @@ const RegistrationScreen = () => {
       <View>
         <TouchableWithoutFeedback onPress={keyboardHide}>
           <KeyboardAvoidingView behavior={Platform.OS == 'ios' ? 'padding' : 'height'}>
-            <View style={{ ...styles.container, marginBottom: isShowKeyboard ? 0 : 50 }}>
+            <View style={{ ...styles.container, marginBottom: isShowKeyboard ? 50 : 0 }}>
               <View style={styles.imgContainer}>
                 <Image source={require('../img/defaultImg.png')} />
                 <SvgComponent style={styles.imgSvg} />
@@ -81,10 +83,16 @@ const RegistrationScreen = () => {
                 style={styles.button}
                 onPress={() => {
                   keyboardHide(), logIn();
+                  navigation.navigate('Home');
                 }}>
                 <Text style={styles.buttonText}>Зареєструватися</Text>
               </TouchableOpacity>
-              <TouchableOpacity>
+              <TouchableOpacity
+                onPress={() =>
+                  navigation.navigate('Login', {
+                    screen: 'PostsScreen',
+                  })
+                }>
                 <Text style={styles.link}>Вже є акаунт? Увійти</Text>
               </TouchableOpacity>
             </View>
