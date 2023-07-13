@@ -12,7 +12,7 @@ import {
   Keyboard,
   ImageBackground,
 } from 'react-native';
-import SvgComponent from '../img/plusSvg';
+import SvgComponent from '../img/svg/plusSvg';
 import { useNavigation } from '@react-navigation/native';
 
 const RegistrationScreen = () => {
