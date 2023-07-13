@@ -52,10 +52,7 @@ const Home = () => {
             );
           }
         },
-      })}
-      tabBarOptions={{
-        showLabel: false,
-      }}>
+      })}>
       <Tabs.Screen
         name="Публікації"
         component={PostsScreen}
