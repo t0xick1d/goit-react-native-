@@ -1,7 +1,7 @@
 import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { Ionicons } from '@expo/vector-icons';
 import { TouchableOpacity, StyleSheet, View } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 
 import LogOut from '../../img/svg/logOut';
 import Grid from '../../img/svg/Grid';
@@ -15,28 +15,39 @@ import Comments from './Pages/CommentsScreen';
 const Tabs = createBottomTabNavigator();
 
 const Home = () => {
+  const navigation = useNavigation();
   return (
     <Tabs.Navigator
       screenOptions={({ route }) => ({
-        tabBarIcon: ({ focused, color, size }) => {
+        tabBarOptions: {
+          showLabel: false,
+        },
+        tabBarShowLabel: false,
+        tabBarStyle: [
+          {
+            display: 'flex',
+          },
+          null,
+        ],
+        tabBarIcon: ({ focused }) => {
           const styleSVG = focused ? styles.activeSvg : styles.noneActiveSvg;
           const focusedColor = focused ? '#fff' : 'rgba(33, 33, 33, 0.8)';
           if (route.name === 'Публікації') {
             return (
               <View style={styleSVG}>
-                <Grid fillColor={focusedColor} />
+                <Grid focusedcolor={focusedColor} />
               </View>
             );
           } else if (route.name === 'Профіль') {
             return (
               <View style={styleSVG}>
-                <Union fillColor={focusedColor} />
+                <Union focusedcolor={focusedColor} />
               </View>
             );
           } else if (route.name === 'Коментарі') {
             return (
               <View style={styleSVG}>
-                <User fillColor={focusedColor} />
+                <User focusedcolor={focusedColor} />
               </View>
             );
           }
@@ -50,7 +61,13 @@ const Home = () => {
         component={PostsScreen}
         options={{
           headerRight: () => (
-            <TouchableOpacity style={styles.containerSVG}>
+            <TouchableOpacity
+              style={styles.containerSVG}
+              onPress={() => {
+                navigation.navigate('Login', {
+                  screen: 'PostsScreen',
+                });
+              }}>
               <LogOut />
             </TouchableOpacity>
           ),
