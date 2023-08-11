@@ -2,20 +2,23 @@ import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { TouchableOpacity, StyleSheet, View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import Icon from 'react-native-vector-icons/AntDesign';
 
 import LogOut from '../../img/svg/logOut';
 import Grid from '../../img/svg/Grid';
 import Union from '../../img/svg/Union';
 import User from '../../img/svg/User';
 
-import PostsScreen from './Pages/PostsScreen';
+// import PostsScreen from './Pages/PostsScreen';
 import Profile from './Pages/ProfileScreen';
 import Comments from './Pages/CommentsScreen';
+import CreatePostsScreen from './Components/CreatePostsScreen';
 
 const Tabs = createBottomTabNavigator();
 
 const Home = () => {
   const navigation = useNavigation();
+  const ArrowLeft = () => <Icon name="arrowleft" size={24} color="rgba(33, 33, 33, 0.7)" light />;
   return (
     <Tabs.Navigator
       screenOptions={({ route }) => ({
@@ -38,13 +41,15 @@ const Home = () => {
                 <Grid focusedcolor={focusedColor} />
               </View>
             );
-          } else if (route.name === 'Профіль') {
+          }
+          if (route.name === 'Створити публікацію') {
             return (
               <View style={styleSVG}>
                 <Union focusedcolor={focusedColor} />
               </View>
             );
-          } else if (route.name === 'Коментарі') {
+          }
+          if (route.name === 'Профіль') {
             return (
               <View style={styleSVG}>
                 <User focusedcolor={focusedColor} />
@@ -55,7 +60,7 @@ const Home = () => {
       })}>
       <Tabs.Screen
         name="Публікації"
-        component={PostsScreen}
+        component={Comments}
         options={{
           headerRight: () => (
             <TouchableOpacity
@@ -70,8 +75,24 @@ const Home = () => {
           ),
         }}
       />
+      <Tabs.Screen
+        name="Створити публікацію"
+        component={CreatePostsScreen}
+        options={{
+          headerLeft: () => (
+            <TouchableOpacity
+              style={styles.containerSVGPublic}
+              onPress={() => {
+                navigation.navigate('Публікації', {
+                  screen: 'Comments',
+                });
+              }}>
+              <ArrowLeft />
+            </TouchableOpacity>
+          ),
+        }}
+      />
       <Tabs.Screen name="Профіль" component={Profile} />
-      <Tabs.Screen name="Коментарі" component={Comments} />
     </Tabs.Navigator>
   );
 };
@@ -80,6 +101,11 @@ const styles = StyleSheet.create({
   containerSVG: {
     marginRight: 16,
     marginBottom: 10,
+    width: 24,
+    height: 24,
+  },
+  containerSVGPublic: {
+    marginLeft: 16,
     width: 24,
     height: 24,
   },
